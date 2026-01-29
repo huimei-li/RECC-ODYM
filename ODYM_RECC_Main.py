@@ -605,7 +605,8 @@ if 'nrb' in SectorList: #2026-01-22，hmli，circomod: only if non-residential b
 # Check if RE strategies are active and set implementation curves to 2016 value if not.
 if 'pav' in SectorList:
     if ScriptConfig['Include_REStrategy_MaterialSubstitution'] == 'False': # no additional lightweighting trough material substitution.
-        ParameterDict['3_SHA_LightWeighting_Vehicles'].Values  = np.einsum('prS,t->prtS',ParameterDict['3_SHA_LightWeighting_Vehicles'].Values[:,:,0,:],np.ones((Nt)))
+        #ParameterDict['3_SHA_LightWeighting_Vehicles'].Values  = np.einsum('prS,t->prtS',ParameterDict['3_SHA_LightWeighting_Vehicles'].Values[:,:,0,:],np.ones((Nt)))
+        ParameterDict['3_SHA_LightWeighting_Vehicles'].Values   = ParameterDict['3_SHA_LightWeighting_Vehicles_Default'].Values.copy() #2026-01-26, hmli, circomod: even when the Material Substitution strategy is turned off, the future share of lightweight still adopts the scenario value instead of the value of 2015
     DownSizingBuffer = ParameterDict['3_SHA_DownSizing_Vehicles'].Values.copy()
     if ScriptConfig['Include_REStrategy_UsingLessMaterialByDesign'] == 'True': # consider lightweighting trough UsingLessMaterialByDesign (segment shift)
         for nnr in range(0,Nr):
